@@ -1,0 +1,160 @@
+#include <iostream>
+#include<cmath>
+
+using namespace std;
+
+main()
+{
+	//variables for the triangle's sides
+	double firstSide;
+	double secondSide;
+	double thirdSide;
+	
+	//variables for the triangle's angles	
+	double firstAngle;
+	double secondAngle;
+	double thirdAngle;
+	
+	double coordinateAx;
+	double coordinateAy;
+	double coordinateBx;
+	double coordinateBy;
+	double coordinateCx;
+	double coordinateCy;
+	
+	double acos(double x);
+	
+	//variables for the triangle's measurements	
+	double areaDouble;
+	double perimeterDouble;
+	double apothemDouble;
+	double circumcenterDouble;
+	
+	//variables for conversion
+	double firstDegreeConvert;
+	double secondDegreeConvert;
+	double thirdDegreeConvert;
+	
+	//variables for labels/triangle types according to sides
+	string scaleneString = "Scalene Triangle ";
+	string isoscelesString = "Isosceles Triangle ";
+	string equilateralString = "Equilateral Triangle ";
+	
+	//variables for labels/triangle types according to angles
+	string rightString = "Right Triangle ";
+	string acuteString = "Acute Triangle ";
+	string obtuseString = "Obtuse Triangle ";	
+	
+	//Start of the program
+	cout << "Kindly indicate the length of the sides of the triangle."<<endl;
+	
+	cout << "Base: " ;
+	cin >> firstSide;
+	
+	cout << "Height: ";
+	cin >> secondSide;
+	
+	cout << "Hypotenuse: ";
+	cin >> thirdSide;
+	
+	cout <<endl;
+	
+	cout << "Kindly indicate the coordinates of the triangle." <<endl;
+	
+	cout << "Coordinates for A: ";
+	cout << "(";
+	cin >> coordinateAx;
+	cout << ",";
+	cin >> coordinateAy;
+	cout << ")";
+	
+	cout << "Coordinates for B: ";
+	cout << "(";
+	cin >> coordinateBx;
+	cout << ",";
+	cin >> coordinateBy;
+	cout << ")";
+	
+	cout << "Coordinates for C: ";
+	cout << "(";
+	cin >> coordinateCx;
+	cout << ",";
+	cin >> coordinateCy;
+	cout << ")";
+	
+	//formula assignment for the previously declared variables
+	firstAngle = acos(((secondSide*secondSide)+(thirdSide*thirdSide)-(firstSide*firstSide))/(2*secondSide*thirdSide));
+	secondAngle = acos(((secondSide*secondSide)+(thirdSide*thirdSide)-(firstSide*firstSide))/(2*secondSide*thirdSide));
+	thirdAngle = acos(((firstSide*firstSide)+(secondSide*secondSide)-(thirdSide*thirdSide))/(2*firstSide*secondSide));
+	
+	cout << "Will now calculate for the interior angles..." <<endl;
+		
+	firstDegreeConvert = firstAngle*180/M_PI;
+	secondDegreeConvert = secondAngle*180/M_PI;
+	thirdDegreeConvert = thirdAngle*180/M_PI;
+
+	cout << "The first interior angle is " << firstDegreeConvert << " degrees" <<endl;
+	cout << "The second interior angle is " << secondDegreeConvert << " degrees" <<endl;
+	cout << "The third interior angle is " << thirdDegreeConvert << " degrees" <<endl;
+	
+	cout << "This triangle is a ";
+	
+	if( firstSide == secondSide && secondSide == thirdSide && thirdSide == firstSide)
+	cout << equilateralString;
+	
+	if( firstSide != secondSide && secondSide != thirdSide && thirdSide != firstSide)
+	cout << scaleneString;
+	
+	
+	if ( (firstSide != secondSide && secondSide == thirdSide) || (firstSide != thirdSide && secondSide == firstSide) || ( secondSide != thirdSide && firstSide == thirdSide) || ( secondSide != thirdSide && secondSide == firstSide))
+	cout << isoscelesString;
+	
+	
+	cout << "and a " ;
+	
+		if(firstDegreeConvert == 90 || secondDegreeConvert == 90 || thirdDegreeConvert == 90)
+	{
+		cout << rightString;
+	}
+	
+	else if (firstDegreeConvert >= 90 || secondDegreeConvert >= 90 || thirdDegreeConvert >= 90 && firstDegreeConvert <= 180 || secondDegreeConvert <= 180 || thirdDegreeConvert <=180)
+	{
+		cout << acuteString;
+	}
+	
+	
+	else if (firstDegreeConvert <= 90 || secondDegreeConvert <= 90 || thirdDegreeConvert <= 90)
+	{
+		cout << obtuseString;
+	}
+	
+	cout <<endl;
+
+	//formula assignment for the previously declared variables
+	areaDouble = (firstSide*secondSide)*(sin(thirdAngle))/2;
+	perimeterDouble = firstSide+secondSide+thirdSide;
+	apothemDouble =	thirdDegreeConvert/2*tan(180/3);
+	double ABMidpointx = (coordinateAx+coordinateBx/2);
+	double ABMidpointy = (coordinateAy+coordinateBy/2);
+	double ABSlope = (coordinateAy+coordinateBy)/(coordinateAx+coordinateBx);
+	double negativeSlopeAB = -(ABSlope);
+	double slopeABWithCoordinates = ABSlope*(ABMidpointx-ABMidpointy);
+	
+	double ACMidpointx = (coordinateAx+coordinateCx/2);
+	double ACMidpointy = (coordinateAy+coordinateCy/2);
+	double ACSlope = (coordinateAy+coordinateCy)/(coordinateAx+coordinateCx);
+	double negativeSlopeAC = -(ACSlope);
+	double slopeACWithCoordinates = ACSlope*(ACMidpointx-ACMidpointy);
+	
+	double equationOneAndTwo = negativeSlopeAC*(ACMidpointx+ACMidpointy);
+	double equationSub = equationOneAndTwo - slopeACWithCoordinates;
+
+	//Final measurements
+	cout << "Here are the following measurements:" <<endl;
+	cout << "AREA: " << areaDouble <<endl;
+	cout << "PERIMETER: " << perimeterDouble <<endl;
+	cout << "APOTHEM: " << apothemDouble<< endl;
+	cout << "CIRCUMCENTER: " << "(" << equationOneAndTwo << "," << equationSub << ")" <<endl;
+
+	
+}
